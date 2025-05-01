@@ -1,0 +1,58 @@
+export const events = [
+  {
+    id: "e1",
+    eventName: "Tech Innovation Summit 2025",
+    date_time: "2025-05-15T09:00:00Z",
+    location: "San Francisco, CA",
+    description:
+      "A gathering of top tech leaders and innovators sharing insights on the future of technology.",
+    speakers: ["John Doe", "Jane Smith", "Mark Johnson"],
+    price: 199.99,
+    image: "../assets/chip.jpg",
+    capacity: 500,
+    availableSpots: 200,
+    registeredIDs: [1],
+  },
+  {
+    id: "e2",
+    eventName: "AI for Business Conference",
+    date_time: "2025-06-10T10:00:00Z",
+    location: "New York, NY",
+    description:
+      "Learn how AI is transforming the business landscape, featuring industry leaders and experts.",
+    speakers: ["Alice Cooper", "David Lee", "Sophia Chen"],
+    price: 299.99,
+    image: "https://example.com/images/ai_conference.jpg",
+    capacity: 300,
+    availableSpots: 120,
+    registeredIDs: [1],
+  },
+  {
+    id: "e3",
+    eventName: "Blockchain and Crypto Expo",
+    date_time: "2025-07-20T08:30:00Z",
+    location: "Las Vegas, NV",
+    description:
+      "An expo dedicated to the world of blockchain technology and cryptocurrency innovations.",
+    speakers: ["Emily Green", "Tom Hardy", "Paul Williams"],
+    price: 149.99,
+    image: "https://example.com/images/blockchain_expo.jpg",
+    capacity: 1000,
+    availableSpots: 650,
+    registeredIDs: [2],
+  },
+  {
+    id: "e4",
+    eventName: "Digital Marketing Masterclass",
+    date_time: "2025-08-05T12:00:00Z",
+    location: "Chicago, IL",
+    description:
+      "An intensive course on the latest trends in digital marketing and social media strategies.",
+    speakers: ["Lisa Adams", "Ryan Harris", "Natalie Perez"],
+    price: 99.99,
+    image: "https://example.com/images/digital_marketing.jpg",
+    capacity: 200,
+    availableSpots: 50,
+    registeredIDs: [2],
+  },
+];

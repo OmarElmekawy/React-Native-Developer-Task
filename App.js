@@ -1,20 +1,110 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function App() {
+import EventList from "./screens/EventList";
+import EventDetails from "./screens/EventDetails";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
+import Dashboard from "./screens/Dashboard";
+import { NavigationContainer } from "@react-navigation/native";
+import { GlobalColors } from "./constants/colors";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import { useSelector } from "react-redux";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function BottomTabs() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { backgroundColor: GlobalColors.primary300 },
+        headerStyle: { backgroundColor: GlobalColors.primary300 },
+        headerTintColor: "white",
+        tabBarActiveTintColor: "yellow",
+        tabBarInactiveTintColor: "white",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: 300,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <Ionicons name="enter-outline" color={color} size={size} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Events"
+        component={EventList}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return <Ionicons name="home" color={color} size={size} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function AuthenticatedNavigation() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerBackTitle: "Back",
+        cardStyle: { backgroundColor: GlobalColors.primary200 },
+        headerStyle: { backgroundColor: GlobalColors.primary300 },
+        headerTintColor: "white",
+      }}
+    >
+      <Stack.Screen
+        name="tabBotom"
+        component={BottomTabs}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="EventDetails" component={EventDetails} />
+    </Stack.Navigator>
+  );
+}
+
+function NotAuthenticated() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: GlobalColors.primary300 },
+        cardStyle: { backgroundColor: GlobalColors.primary200 },
+        headerTintColor: "white",
+      }}
+    >
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+    </Stack.Navigator>
+  );
+}
+
+function RootNavigation() {
+  const loginState = useSelector((state) => state.loginRed.loginedIn);
+
+  return (
+    <NavigationContainer>
+      {!loginState && <NotAuthenticated />}
+      {loginState && <AuthenticatedNavigation />}
+    </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <RootNavigation />
+    </Provider>
+  );
+}
