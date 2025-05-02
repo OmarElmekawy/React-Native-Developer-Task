@@ -12,7 +12,9 @@ function Button({ onPress, buttonText, mode }) {
       ]}
     >
       <View>
-        <Text style={[styles.text, mode==="flat" && styles.flatText]}>{buttonText}</Text>
+        <Text style={[styles.text, mode === "flat" && styles.flatText]}>
+          {buttonText}
+        </Text>
       </View>
     </Pressable>
   );
@@ -35,11 +37,12 @@ const styles = StyleSheet.create({
   },
   flat: {
     backgroundColor: "transparent",
-    width:"100%"
+    width: "60%",
+    elevation: 0,
   },
   flatText: {
     fontWeight: "normal",
-    fontSize: 20,
+    fontSize: 18,
   },
   pressed: {
     opacity: 0.75,

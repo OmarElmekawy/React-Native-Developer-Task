@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEventsAction } from "../store/eventsSlice";
 import { GlobalColors } from "../constants/colors";
+import ErrorOverlay from "../componants/error/error";
 
 function Dashboard() {
   const id = useSelector((state) => state.loginRed.loginedIn);
   const events = useSelector((state) => state.eventsRed.events);
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   const registeredEvents = events.filter((event) =>
@@ -18,11 +20,23 @@ function Dashboard() {
 
   useEffect(() => {
     const handleFetchEvents = async () => {
-      const fetchedEvents = await fetchEvents();
-      dispatch(addEventsAction(fetchedEvents));
+      try {
+        const fetchedEvents = await fetchEvents();
+        dispatch(addEventsAction(fetchedEvents));
+      } catch (error) {
+        setError("could not fetch events list");
+      }
     };
     handleFetchEvents();
   }, []);
+
+  function handleError() {
+    setError(null);
+  }
+
+  if (error) {
+    return <ErrorOverlay message={error} onConfirm={handleError} />;
+  }
 
   function registeredEventlistrenderItem(itemData) {
     return <EventItem {...itemData.item} />;
@@ -51,6 +65,12 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 50,
+    fontSize: 24,
+  },
+  title: {
+    marginTop: 24,
+    fontWeight: "bold",
+    color: "white",
     fontSize: 24,
   },
 });

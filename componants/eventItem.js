@@ -1,6 +1,7 @@
 import { Image, Text, View, Pressable, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { GlobalColors } from "../constants/colors";
+import { formatDate } from "../Util/formDate";
 
 function EventItem(props) {
   const navigation = useNavigation();
@@ -12,19 +13,21 @@ function EventItem(props) {
   }
 
   return (
-    <View style={styles.outerContainer}>
-      <Pressable onPress={handleNavigation} styles={styles.press}>
-        <View>
-          <Image source={{ url: image }} style={styles.image} />
-          <Text style={styles.title}>{eventName}</Text>
-        </View>
-        <View style={styles.detailsContainder}>
-          <Text style={styles.text}>{date_time}</Text>
-          <Text style={styles.text}>${price}</Text>
-          <Text style={styles.text}>{location}</Text>
-        </View>
-      </Pressable>
-    </View>
+    <>
+      <View style={styles.outerContainer}>
+        <Pressable onPress={handleNavigation} styles={styles.press}>
+          <View>
+            <Image source={{ url: image }} style={styles.image} />
+            <Text style={styles.title}>{eventName}</Text>
+          </View>
+          <View style={styles.detailsContainder}>
+            <Text style={styles.text}>{formatDate(date_time)}</Text>
+            <Text style={styles.text}>${price}</Text>
+            <Text style={styles.text}>{location}</Text>
+          </View>
+        </Pressable>
+      </View>
+    </>
   );
 }
 
@@ -38,7 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     shadowColor: "gray",
     shadowOffset: { width: 5, height: 5 },
-    backgroundColor:GlobalColors.primary200
+    backgroundColor: GlobalColors.primary200,
+    flex:1
   },
   image: {
     width: "100%",

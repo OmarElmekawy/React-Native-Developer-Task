@@ -6,11 +6,12 @@ import { addUserToRegisteredIDs } from "../http/http";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { registerEventsAction } from "../store/eventsSlice";
+import { formatDate } from "../Util/formDate";
 
 function EventDetails({ route, navigation }) {
   const [isRegister, setIsRegister] = useState(false);
   const eventID = route.params.eventId;
-  const selectedEvent = route.params.event;
+  const [selectedEvent, setSelectedEvent] = useState(route.params.event);
   const userId = useSelector((state) => state.loginRed.loginedIn);
   const dispatch = useDispatch();
 
@@ -19,9 +20,10 @@ function EventDetails({ route, navigation }) {
     selectedEvent.registeredIDs.includes(userId) || isRegister;
 
   async function handleRegisterEvents(eventID, userId) {
-    setIsRegister(true);
     const data = await addUserToRegisteredIDs(eventID, userId);
     dispatch(registerEventsAction({ eventID, data }));
+    setIsRegister(true);
+    setSelectedEvent(data);
   }
 
   useLayoutEffect(() => {
@@ -34,12 +36,13 @@ function EventDetails({ route, navigation }) {
     <View style={styles.conntainer}>
       <Image source={{ url: selectedEvent.image }} style={styles.image} />
       <Text style={styles.title}>{selectedEvent.eventName}</Text>
-      <Text style={styles.text}>{selectedEvent.date_time}</Text>
+      <Text style={styles.text}>{formatDate(selectedEvent.date_time)}</Text>
       <Text style={styles.text}>{selectedEvent.location}</Text>
       <Text style={styles.text}>The Speakers: {selectedEvent.speakers}</Text>
       <Text style={styles.text}>capacity: {selectedEvent.capacity}</Text>
       <Text style={styles.text}>
-        Available Spots: {selectedEvent.availableSpots}
+        Available Spots:{" "}
+        {selectedEvent.capacity - selectedEvent.registeredIDs.length}
       </Text>
       <Text style={styles.text}>{selectedEvent.description}</Text>
       <View style={styles.button}>
@@ -48,6 +51,11 @@ function EventDetails({ route, navigation }) {
             buttonText="Register"
             onPress={() => handleRegisterEvents(eventID, userId)}
           />
+        )}
+        {isRegistered && (
+          <Text style={styles.text}>
+            you have already registerd to this event
+          </Text>
         )}
       </View>
     </View>

@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import AuthContent from "../componants/AuthForm/AuthCon";
 import { handleLogin } from "../http/http";
 import { useDispatch } from "react-redux";
@@ -18,10 +18,16 @@ function Login({ navigation }) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <AuthContent isLogin onAuthenticate={handleLoginRequest} />
     </View>
   );
 }
 
 export default Login;
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1
+  }
+})

@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
 import EventList from "./screens/EventList";
 import EventDetails from "./screens/EventDetails";
 import Login from "./screens/Login";
@@ -7,16 +6,20 @@ import SignUp from "./screens/SignUp";
 import Dashboard from "./screens/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { GlobalColors } from "./constants/colors";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import store from "./store/store";
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import Button from "./UI/button";
+import { loginAction } from "./store/loginSlice";
+import { useWindowDimensions } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function BottomTabs() {
+  const dispatch = useDispatch();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -28,6 +31,17 @@ function BottomTabs() {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: 300,
+        },
+        headerRight: () => {
+          return (
+            <Button
+              mode="flat"
+              buttonText="Logout"
+              onPress={() => {
+                dispatch(loginAction(null));
+              }}
+            />
+          );
         },
       }}
     >
@@ -76,10 +90,14 @@ function AuthenticatedNavigation() {
 }
 
 function NotAuthenticated() {
+  const { width, height } = useWindowDimensions();
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: GlobalColors.primary300 },
+        headerStyle: {
+          backgroundColor: GlobalColors.primary300,
+          height: height < 460 ? 60 : 100,
+        },
         cardStyle: { backgroundColor: GlobalColors.primary200 },
         headerTintColor: "white",
       }}

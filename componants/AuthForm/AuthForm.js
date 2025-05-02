@@ -1,14 +1,21 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import Input from "./input";
 import { GlobalColors } from "../../constants/colors";
 import Button from "../../UI/button";
 import { useState } from "react";
 
-function AuthForm({ isLogin, onSubmit }) {
+function AuthForm({ isLogin, onSubmit, credentialInvalid }) {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
+
+   const {
+    email: emailIsInvalid,
+    confirmEmail: emailIsNotEqual,
+    password: passwordIsInvalid,
+     confirmPassword: passwordIsNotEqual,
+  } = credentialInvalid;
 
   function collectUserInputHandler(inputValue, enteredValue) {
     switch (inputValue) {
@@ -43,6 +50,7 @@ function AuthForm({ isLogin, onSubmit }) {
         keyboardType="email-address"
         inputValuesHandler={collectUserInputHandler.bind(this, "email")}
         value={enteredEmail}
+        invalid={emailIsInvalid}
       />
       {!isLogin && (
         <Input
@@ -53,6 +61,7 @@ function AuthForm({ isLogin, onSubmit }) {
             "confirmEmail"
           )}
           value={enteredConfirmEmail}
+          invalid={emailIsNotEqual}
         />
       )}
       <Input
@@ -61,6 +70,7 @@ function AuthForm({ isLogin, onSubmit }) {
         inputValuesHandler={collectUserInputHandler.bind(this, "password")}
         value={enteredPassword}
         secure
+        invalid={passwordIsInvalid}
       />
       {!isLogin && (
         <Input
@@ -72,6 +82,7 @@ function AuthForm({ isLogin, onSubmit }) {
           )}
           value={enteredConfirmPassword}
           secure
+          invalid={passwordIsNotEqual}
         />
       )}
       <View style={styles.button}>
@@ -85,9 +96,11 @@ function AuthForm({ isLogin, onSubmit }) {
 }
 
 export default AuthForm;
+const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   inputContainer: {
+    paddingTop: 24,
     padding: 24,
   },
   button: {

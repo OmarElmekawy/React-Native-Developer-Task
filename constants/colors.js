@@ -3,4 +3,5 @@ export const GlobalColors={
     primary300:"#008DC0",
     primary400:"#007AA2",
     primary500:"#003A88",
+    error100:"#ff7f7f"
 }
