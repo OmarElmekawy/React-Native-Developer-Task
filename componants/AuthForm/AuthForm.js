@@ -1,7 +1,7 @@
 import { StyleSheet, View, Dimensions } from "react-native";
 import Input from "./input";
 import { GlobalColors } from "../../constants/colors";
-import Button from "../../UI/button";
+import ButtonUI from "../../UI/button";
 import { useState } from "react";
 
 function AuthForm({ isLogin, onSubmit, credentialInvalid }) {
@@ -10,11 +10,11 @@ function AuthForm({ isLogin, onSubmit, credentialInvalid }) {
   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
 
-   const {
+  const {
     email: emailIsInvalid,
     confirmEmail: emailIsNotEqual,
     password: passwordIsInvalid,
-     confirmPassword: passwordIsNotEqual,
+    confirmPassword: passwordIsNotEqual,
   } = credentialInvalid;
 
   function collectUserInputHandler(inputValue, enteredValue) {
@@ -86,7 +86,7 @@ function AuthForm({ isLogin, onSubmit, credentialInvalid }) {
         />
       )}
       <View style={styles.button}>
-        <Button
+        <ButtonUI
           buttonText={isLogin ? "Login" : "Signup"}
           onPress={submitData}
         />

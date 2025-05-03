@@ -1,7 +1,7 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import { useLayoutEffect, useState } from "react";
 
-import Button from "../UI/button";
+import ButtonUI from "../UI/button";
 import { addUserToRegisteredIDs } from "../http/http";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -47,7 +47,7 @@ function EventDetails({ route, navigation }) {
       <Text style={styles.text}>{selectedEvent.description}</Text>
       <View style={styles.button}>
         {!isRegistered && (
-          <Button
+          <ButtonUI
             buttonText="Register"
             onPress={() => handleRegisterEvents(eventID, userId)}
           />

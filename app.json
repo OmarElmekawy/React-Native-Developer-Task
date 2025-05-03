@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "my-app",
+    "name": "Event App Task",
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "default",
@@ -16,13 +16,20 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.omarmelmekawy.EventApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b243fce0-a9d9-4b75-afff-6a44430279cd"
+      }
     }
   }
 }

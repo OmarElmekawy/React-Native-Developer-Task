@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
-import Button from "../../UI/button";
+import ButtonUI from "../../UI/button";
 import { GlobalColors } from "../../constants/colors";
 
 function ErrorOverlay({ message, onConfirm }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{message}</Text>
-      <Button buttonText="Okay" onPress={onConfirm} />
+      <ButtonUI buttonText="Okay" onPress={onConfirm} />
     </View>
   );
 }

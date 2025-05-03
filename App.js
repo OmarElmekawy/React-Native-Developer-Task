@@ -11,15 +11,18 @@ import store from "./store/store";
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import Button from "./UI/button";
+import ButtonUI from "./UI/button";
 import { loginAction } from "./store/loginSlice";
-import { useWindowDimensions } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function BottomTabs() {
   const dispatch = useDispatch();
+  function handlePress() {
+    dispatch(loginAction(null));
+  }
   return (
     <Tab.Navigator
       screenOptions={{
@@ -34,13 +37,7 @@ function BottomTabs() {
         },
         headerRight: () => {
           return (
-            <Button
-              mode="flat"
-              buttonText="Logout"
-              onPress={() => {
-                dispatch(loginAction(null));
-              }}
-            />
+            <ButtonUI mode="flat" buttonText="Logout" onPress={handlePress} />
           );
         },
       }}
@@ -72,7 +69,7 @@ function AuthenticatedNavigation() {
     <Stack.Navigator
       screenOptions={{
         headerBackTitle: "Back",
-        cardStyle: { backgroundColor: GlobalColors.primary200 },
+        contentStyle: { backgroundColor: GlobalColors.primary200 },
         headerStyle: { backgroundColor: GlobalColors.primary300 },
         headerTintColor: "white",
       }}
@@ -113,8 +110,7 @@ function RootNavigation() {
 
   return (
     <NavigationContainer>
-      {!loginState && <NotAuthenticated />}
-      {loginState && <AuthenticatedNavigation />}
+      {!loginState ? <NotAuthenticated /> : <AuthenticatedNavigation />}
     </NavigationContainer>
   );
 }
@@ -122,7 +118,13 @@ function RootNavigation() {
 export default function App() {
   return (
     <Provider store={store}>
-      <RootNavigation />
+      <View style={styles.container}>
+        <RootNavigation />
+      </View>
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+});

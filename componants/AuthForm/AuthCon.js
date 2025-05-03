@@ -1,4 +1,4 @@
-import Button from "../../UI/button";
+import ButtonUI from "../../UI/button";
 import AuthForm from "./AuthForm";
 import {
   Alert,
@@ -72,7 +72,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
             credentialInvalid={credentialsIsInvalid}
           />
           <View style={styles.buttonContainer}>
-            <Button
+            <ButtonUI
               mode="flat"
               buttonText={isLogin ? "create new user" : "login instead"}
               onPress={navigatePagesHandler}

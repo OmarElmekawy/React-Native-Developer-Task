@@ -3,9 +3,9 @@ import { handleLogin } from "../http/http";
 
 export const loginSlice = createSlice({
   name: "login",
-  initialState: { loginedIn: null},
+  initialState: { loginedIn: null },
   reducers: {
-    loginState: (state,actions) => {
+    loginState: (state, actions) => {
       state.loginedIn = actions.payload;
     },
   },

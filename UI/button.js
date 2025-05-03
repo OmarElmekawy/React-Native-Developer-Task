@@ -1,7 +1,8 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { GlobalColors } from "../constants/colors";
 
-function Button({ onPress, buttonText, mode }) {
+function ButtonUI({ onPress, buttonText, mode }) {
+  
   return (
     <Pressable
       onPress={onPress}
@@ -20,7 +21,7 @@ function Button({ onPress, buttonText, mode }) {
   );
 }
 
-export default Button;
+export default ButtonUI;
 
 const styles = StyleSheet.create({
   buttonContainer: {
